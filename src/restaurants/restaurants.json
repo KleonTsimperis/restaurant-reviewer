@@ -1,0 +1,34 @@
+[
+{
+  "restaurantName":"Il Grillo",
+  "address":"Via Colle in Su,29",
+  "lat":42.949018,
+  "long":13.844059,
+  "ratings":[
+     {
+        "stars":4,
+        "comment":"Great! But not many veggie options."
+     },
+     {
+        "stars":5,
+        "comment":"My favorite restaurant!"
+     }
+  ]
+},
+{
+  "restaurantName":"Sapori di Vino",
+  "address":"Largo Danubio, 5",
+  "lat":42.915595,
+  "long":13.895797,
+  "ratings":[
+     {
+        "stars":5,
+        "comment":"Tiny pizzeria next to Sacre Coeur!"
+     },
+     {
+        "stars":3,
+        "comment":"Meh, it was fine."
+     }
+  ]
+}
+]
