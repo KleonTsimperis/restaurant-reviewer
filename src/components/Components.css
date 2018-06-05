@@ -1,0 +1,9 @@
+nav, .form{
+  background: rgb(238,174,202);
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(5,24,47,1) 72%);
+}
+
+.styles_modal__gNwvD{
+  background: none;
+  box-shadow: none;
+}
