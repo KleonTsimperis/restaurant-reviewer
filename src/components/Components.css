@@ -1,7 +1,14 @@
-nav, .form{
+.form{
   background: rgb(238,174,202);
   background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(5,24,47,1) 72%);
 }
+
+nav{
+  border-bottom: 2px solid black;
+  color:black;
+  font-family: 'Great Vibes', cursive;
+}
+
 
 .styles_modal__gNwvD{
   background: none;

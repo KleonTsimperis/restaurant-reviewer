@@ -4,16 +4,24 @@
     "address":"Via Colle in Su, 29",
     "lat":42.949018,
     "lng":13.844059,
-    "restaurantId":1,
+    "restaurantId":0,
     "isEditing":false,
     "ratings":[
        {
-          "stars":5,
+          "stars":4,
           "comment":"Great! But not many veggie options."
        },
        {
           "stars":5,
           "comment":"My favorite restaurant!"
+       },
+       {
+          "stars":3,
+          "comment":"I had better, but they offer a wide range of beef."
+       },
+       {
+          "stars":4,
+          "comment":"I had the steak, mussels with a side of chicken parmesan. All were very good. We will be back."
        }
     ]
   },
@@ -22,16 +30,28 @@
     "address":"Largo Danubio, 5",
     "lat":42.915595,
     "lng":13.895797,
-    "restaurantId":2,
+    "restaurantId":1,
     "isEditing":false,
     "ratings":[
        {
-          "stars":1,
+          "stars":3,
           "comment":"Tiny pizzeria next to Sacre Coeur!"
        },
        {
-          "stars":1,
+          "stars":3,
           "comment":"Meh, it was fine."
+       },
+       {
+          "stars":4,
+          "comment":"The food, service, atmosphere, and service are excellent. I would recommend it to all my friends!"
+       },
+       {
+          "stars":2,
+          "comment":"Good atmosphere, amazing food and great service.Service is also pretty good. Give them a try!"
+       },
+       {
+          "stars":3,
+          "comment":"Had better..."
        }
     ]
   }

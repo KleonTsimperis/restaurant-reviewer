@@ -78,7 +78,7 @@ import Form from './components/Form';
 
       <Map
        google={this.props.google}
-       zoom={7}
+       zoom={11}
        style={style}
        initialCenter={{
           lat: this.state.lat,
