@@ -2,8 +2,8 @@
   {
     "restaurantName":"Il Grillo",
     "address":"Via Colle in Su, 29",
-    "lat":42.949018,
-    "lng":13.844059,
+    "lat":42.9678065,
+    "lng":13.8787955,
     "restaurantId":0,
     "isEditing":false,
     "ratings":[
@@ -28,8 +28,8 @@
   {
     "restaurantName":"Sapori di Vino",
     "address":"Largo Danubio, 5",
-    "lat":42.915595,
-    "lng":13.895797,
+    "lat":42.9150766,
+    "lng":13.8953696,
     "restaurantId":1,
     "isEditing":false,
     "ratings":[

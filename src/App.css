@@ -8978,4 +8978,8 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6;
   }
 }
+
+::-webkit-scrollbar {display:none;}
+
+
 /*# sourceMappingURL=bootstrap.css.map */

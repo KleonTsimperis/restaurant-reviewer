@@ -14,6 +14,7 @@ const styles = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
+
   },
   button: {
     display: 'block',
@@ -21,7 +22,8 @@ const styles = theme => ({
   },
   formControl: {
     margin: theme.spacing.unit,
-    minWidth: 140
+    minWidth: 60,
+    width:60
   },
   navTitle:{
     marginTop: theme.spacing.unit * 2,
@@ -32,13 +34,12 @@ const styles = theme => ({
 const Navbar = props =>{
   const { classes } = props;
 
-  return <nav className="navbar m-0 text-center">
+  return <nav className="navbar m-0 text-center pb-2">
           <h1 className={classes.navTitle}>Restaurant Reviewer</h1>
           <form className={classes.container}>
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="controlled-open-select">From</InputLabel>
             <Select
-              openInput={props.openInput}
               onClose={props.handleInputClose}
               onOpen={props.handleInputOpen}
               value={props.from}
@@ -62,7 +63,6 @@ const Navbar = props =>{
             <FormControl className={classes.formControl}>
             <InputLabel htmlFor="controlled-open-select">To</InputLabel>
             <Select
-              openInput={props.openInput}
               onClose={props.handleInputClose}
               onOpen={props.handleInputOpen}
               value={props.to}

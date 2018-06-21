@@ -4,7 +4,7 @@ import './Components.css';
 const Form = props =>
 
   <div  className="form text-white">
-    <h2 ref={subtitle => this.subtitle = subtitle} className="text-center">Submit your review</h2>
+    <h4 ref={subtitle => this.subtitle = subtitle} className="text-center">Submit your review</h4>
     <form onSubmit={props.newRestaurantSubmitHandler} id="userForm">
       <div className="row m-3">
         <div className="col">
@@ -41,7 +41,7 @@ const Form = props =>
         </div>
       </div>
       <div className="row m-3  my-1 mr-sm-2 pb-3">
-        <div className="col col-md-6">
+        <div className="col col-md-6 m-0">
         <select className="custom-select" id="inlineFormCustomSelectPref" value={props.value} onChange={props.handleChange}>
           <option defaultValue>Rate your visit</option>
           <option value="1" onClick={()=> props.handleChange(1)}>1</option>
@@ -51,8 +51,8 @@ const Form = props =>
           <option value="5" onClick={()=> props.handleChange(5)}>5</option>
         </select>
         </div>
-        <div className="col col-md-6">
-          <button type="submit" className="btn btn-primary mx-auto text-center" style={{width:"200px"}} onSubmit={props.newRestaurantSubmitHandler}>Submit Review</button>
+        <div className="col col-md-6 m-0">
+          <button type="submit" className="btn btn-primary mx-auto text-center " style={{width:"170px"}} onSubmit={props.newRestaurantSubmitHandler}>Submit Review</button>
         </div>
       </div>
     </form>
