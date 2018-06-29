@@ -56,10 +56,10 @@ const styles = {
 };
 
 const ratingAbove = isAbove => item =>
-  item.rating >= isAbove;
+  item.reviews.map(item=>item.rating).reduce((accumulator,initialValue)=>accumulator+initialValue) / item.reviews.length >= isAbove;
 
 const ratingBelow = isBelow => item =>
-  item.rating <= isBelow;
+  item.reviews.map(item=>item.rating).reduce((accumulator,initialValue)=>accumulator+initialValue) / item.reviews.length <= isBelow;
 
 
 const RestaurantCardFromGoogle = props => {
@@ -68,7 +68,8 @@ const RestaurantCardFromGoogle = props => {
 
 return  <div className={classes.container1}>
           {props.restaurantsGoogle.filter(ratingAbove(props.from)).filter(ratingBelow(props.to)).map(item=>{
-              const overall = item.reviews.map(item=>item.rating).reduce((accumulator,initialValue)=>accumulator+initialValue) / item.reviews.length;
+              const overall1 = item.reviews.map(item=>item.rating).reduce((accumulator,initialValue)=>accumulator+initialValue) / item.reviews.length;
+              const overall = parseFloat(overall1.toFixed(1));
 return        <Card className={classes.card} key={item.place_id}>
                 <CardContent className={classes.container2}>
 
@@ -77,7 +78,7 @@ return        <Card className={classes.card} key={item.place_id}>
                     <Typography variant="subheading" className={classes.ratingStars}>
                       <StarRatings
                         rating={overall}
-                        starRatedColor="yellow"
+                        starRatedColor="orange"
                         starDimension="20px"
                         starSpacing="3px"
                         numberOfStars={5}
@@ -92,15 +93,14 @@ return        <Card className={classes.card} key={item.place_id}>
                   </Typography>
                 </CardContent>
                 <CardActions className={classes.container2}>
-                <Button variant="contained" color="primary" className={classes.buttonAdd} onClick={()=>props.assignIsEditing(item.place_id,item.name,item.vicinity,overall)}>
+                <Button variant="contained" color="primary" size="small"  className={classes.buttonAdd} onClick={()=>props.assignIsEditing(item.place_id,item.name,item.vicinity,overall)}>
                   ADD REVIEW
                 </Button>
-                <Button variant="contained" color="primary" onClick={()=>props.openRecentReviewsGoogle(item.place_id, item.geometry.location.lat,item.geometry.location.lng)}>
-                  RECENT REVIEWS
+                <Button  color="primary" size="small"  onClick={()=>props.openRecentReviewsGoogle(item.place_id, item.geometry.location.lat,item.geometry.location.lng)}>
+                  RESTAURANT INFO
                 </Button>
                 <Button variant="contained" color="secondary" size="small" className={classes.buttonRemove} onClick={()=>props.removeRestaurantFromList(item.place_id)}>
                   REMOVE
-                  <Delete />
                 </Button>
                 </CardActions>
             </Card>

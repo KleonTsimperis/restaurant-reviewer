@@ -35,6 +35,7 @@ const styles = theme => ({
     maxWidth: "33%",
     height:"90vh",
     paddingTop:10,
+    overflow:"scroll",
   },
 
 });
@@ -63,8 +64,8 @@ class App2 extends Component {
       showRestaurantReviewsCardLocal:false,
       showRestaurantReviewsCardGoogle:false,
       restaurantsGoogle:[],
-      completed:false,
-
+      snackBarError:false,
+      snackBarSubmission:false,
     }
 
     this.onOpenModal = this.onOpenModal.bind(this);
@@ -83,6 +84,8 @@ class App2 extends Component {
     this.discardReviewForm = this.discardReviewForm.bind(this);
     this.changeRating = this.changeRating.bind(this);
     this.openRecentReviewsGoogle = this.openRecentReviewsGoogle.bind(this);
+    this.handleOpenSnackBar = this.handleOpenSnackBar.bind(this);
+    this.handleCloseSnackBar = this.handleCloseSnackBar.bind(this);
   }
 
 
@@ -112,14 +115,43 @@ class App2 extends Component {
          .then(response =>this.setState({restaurants:response.data}));
   }
 
+  handleOpenSnackBar(check){
+    if (check==='error'){
+      this.setState({
+        snackBarError:true
+      })
+    }
+    if (check==='submission'){
+      this.setState({
+        snackBarSubmission:true
+      })
+    }
+  }
+
+  handleCloseSnackBar(check){
+    if (check==='errorClose'){
+      this.setState({
+        snackBarError:false
+      })
+    }
+    if (check==='submission'){
+      this.setState({
+        snackBarSubmission:false
+      })
+    }
+  }
 
   onOpenModal(){
-    this.setState({ open: true });
-  };
+    this.setState({
+      open:true
+     })
+  }
 
   onCloseModal(){
-    this.setState({ open: false });
-  };
+    this.setState({
+      open:false
+    })
+  }
 
   onRestaurantNameChange(e){
     this.setState({restaurantName:e.target.value});
@@ -178,33 +210,29 @@ class App2 extends Component {
 
 
   onMapClickChange(x,y,info){
-    this.setState(
-      {
+    this.setState({
         lat:x,
         lng:y,
         address:info
-      }
-    )
-  }
+      })
+    }
 
   liftGeolocationUp(x,y){
-    this.setState(
-      {
+    this.setState({
         geoLat:x,
         geoLng:y
-      }
-    )
+      })
   }
 
   handleChange(event){
     this.setState({stars:event.target.value})
   }
 
-  changeRating( newRating ) {
+  changeRating( newRating ){
       this.setState({
-        stars: newRating
-      });
-}
+        stars:newRating
+      })
+  }
 
   reviewRestaurantOnList(id,text){
     const stars = parseInt(this.state.stars);
@@ -262,10 +290,16 @@ class App2 extends Component {
 
   assignIsEditing(id,name,vicinity,rating){
     this.setState({restaurantsGoogle:this.state.restaurantsGoogle.map(item=>{
+      if(item.isEditing){
+        return {
+         ...item,
+         isEditing:false
+        }
+      }
       if (id === item.place_id){
         return {
           ...item,
-          isEditing:true,
+          isEditing:true
         }
       }
       return item;
@@ -282,27 +316,27 @@ class App2 extends Component {
 
   addReview(id){
     const stars = parseInt(this.state.stars);
-    this.setState({
-      restaurants:this.state.restaurants.map(restaurant=>{
-        if(restaurant.isEditing){
-          return {
-            ...restaurant,
-            ratings:[
-              {
-              stars:stars,
-              comment: this.state.restaurantComment
-              },
-              ...restaurant.ratings
-            ],
-            isEditing:false
-          }
-        }
-        return restaurant;
-      }),
-      restaurantComment:'',
-      stars:5,
-      openReviewForm:false
-    });
+    // this.setState({
+    //   restaurants:this.state.restaurants.map(restaurant=>{
+    //     if(restaurant.isEditing){
+    //       return {
+    //         ...restaurant,
+    //         ratings:[
+    //           {
+    //           stars:stars,
+    //           comment: this.state.restaurantComment
+    //           },
+    //           ...restaurant.ratings
+    //         ],
+    //         isEditing:false
+    //       }
+    //     }
+    //     return restaurant;
+    //   }),
+    //   restaurantComment:'',
+    //   stars:5,
+    //   openReviewForm:false
+    // });
     this.setState({
       restaurantsGoogle:this.state.restaurantsGoogle.map(restaurant=>{
         if(restaurant.isEditing){
@@ -324,31 +358,31 @@ class App2 extends Component {
       stars:5,
       openReviewForm:false
     })
-  }
+    this.handleOpenSnackBar('submission');
+    }
+
 
   discardReviewForm(){
-    // this.setState({restaurants:this.state.restaurants.map(item=>{
-    //   if (item.isEditing){
-    //     return {
-    //       ...item,
-    //       isEditing:false
-    //     }
-    //   }
-    //   return item;
-    // })})
-    // this.setState({openReviewForm:false});
+    this.setState({restaurants:this.state.restaurants.map(item=>{
+      if (item.isEditing){
+        return {
+          ...item,
+          isEditing:false
+        }
+      }
+      return item;
+    })})
+    this.setState({restaurantsGoogle:this.state.restaurantsGoogle.map(item=>{
+      if (item.isEditing){
+        return {
+          ...item,
+          isEditing:false
+        }
+      }
+      return item;
+    })})
+    this.setState({openReviewForm:false});
 
-      // this.setState({restaurants:this.state.restaurantsGoogle.map(item=>{
-      //   if (item.isEditing){
-      //     return {
-      //       ...item,
-      //       isEditing:false
-      //     }
-      //   }
-      //   return item;
-      // })})
-      // this.setState({openReviewForm:false});
-      this.setState({openReviewForm:false});
   };
 
   openRecentReviewsGoogle(place_id,lat,lng){
@@ -381,7 +415,7 @@ class App2 extends Component {
         </AppBar>
 
         <Grid container spacing={8} className={classes.root}>
-          <Grid item xs={12} md={3}>
+          <Grid item  md={3}>
           <MapContainer
             restaurants={this.state.restaurants}
             restaurantName={this.state.restaurantName}
@@ -397,11 +431,15 @@ class App2 extends Component {
             onCloseModal={this.onCloseModal}
             open={this.state.open}
             liftGeolocationUp={(x,y)=>this.liftGeolocationUp(x,y)}
+            restaurantsGoogle={this.state.restaurantsGoogle}
+            handleOpenSnackBar={this.handleOpenSnackBar}
+            handleCloseSnackBar={this.handleCloseSnackBar}
+            snackBarError={this.state.snackBarError}
           />
           </Grid>
 
 
-          <Grid item xs={12} md={5} className={classes.resultsContainer}>
+          <Grid item  md={5} className={classes.resultsContainer}>
           <RestaurantCardFromLocal
             restaurants={restaurants}
             reviewRestaurantOnList={this.reviewRestaurantOnList}
@@ -431,7 +469,7 @@ class App2 extends Component {
 
 
 
-          <Grid item xs={12} md={4} className={classes.reviewFormContainer}>
+          <Grid item  md={4} className={classes.reviewFormContainer}>
           {this.state.showRestaurantReviewsCardLocal && <RestaurantReviewsCardLocal
             restaurants={restaurants}
             restaurantId={this.state.restaurantId}
@@ -469,7 +507,9 @@ class App2 extends Component {
               addReview={this.addReview}
               openReviewForm={this.state.openReviewForm}
               discardReviewForm={this.discardReviewForm}
-
+              snackBarSubmission={this.state.snackBarSubmission}
+              handleOpenSnackBar={this.handleOpenSnackBar}
+              handleCloseSnackBar={this.handleCloseSnackBar}
             />
           }
           </Grid>

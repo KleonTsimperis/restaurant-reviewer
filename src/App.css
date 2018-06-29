@@ -8981,5 +8981,10 @@ a.text-dark:hover, a.text-dark:focus {
 
 ::-webkit-scrollbar {display:none;}
 
+.modal{
+  position:absolute;
+  top:500px;
+}
+
 
 /*# sourceMappingURL=bootstrap.css.map */

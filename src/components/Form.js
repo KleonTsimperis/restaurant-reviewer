@@ -3,7 +3,7 @@ import './Components.css';
 
 const Form = props =>
 
-  <div  className="form text-white">
+  <div  className="form">
     <h4 ref={subtitle => this.subtitle = subtitle} className="text-center">Submit your review</h4>
     <form onSubmit={props.newRestaurantSubmitHandler} id="userForm">
       <div className="row m-3">
