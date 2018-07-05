@@ -3,9 +3,7 @@ import './Components.css';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import StarRatings from 'react-star-ratings';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -17,7 +15,6 @@ import Phone from '@material-ui/icons/Phone';
 import Public from '@material-ui/icons/Public';
 import AccessTime from '@material-ui/icons/AccessTime';
 import RateReview from '@material-ui/icons/RateReview';
-import Label from '@material-ui/icons/Label';
 import Done from '@material-ui/icons/Done';
 import Block from '@material-ui/icons/Block';
 
@@ -53,6 +50,9 @@ const styles = {
     flex: '1 0 100%',
     marginBottom: 16,
     textAlign: 'center',
+    fontSize: '2rem!important',
+    textAlign: 'center',
+    maxWidth: '420px'
   },
   reviewOverall:{
     fontSize:'2rem',
@@ -87,28 +87,29 @@ const styles = {
 
 };
 
-
+const restaurantToShow = selectedId => item => item.place_id === selectedId;
 
 const RestaurantReviewsCardGoogle = props => {
   const { classes } = props;
-  const restaurantToShow = selectedId => item => item.place_id === selectedId;
+
   return(
   <div className={classes.container}>
-    {props.restaurantsGoogle.filter(restaurantToShow(props.restaurantId)).map(item=> {
-      console.log(item)
-      const overall = item.reviews.map(item=>item.rating).reduce((accumulator,initialValue)=>accumulator+initialValue) / item.reviews.length;
-return <Card className={classes.card} key={item.place_id}>
+    {props.restaurantsGoogle.filter(restaurantToShow(props.restaurantId)).map(item=>{
+      const overall1 = item.reviews.map(item=>item.rating).reduce((accumulator,initialValue)=>accumulator+initialValue) / item.reviews.length;
+      const overall = parseFloat(overall1.toFixed(1),10)
+      return(
+        <Card className={classes.card} key={item.place_id}>
           <CardContent className={classes.content}>
             <Typography className={classes.image} variant="headline" component="h4">
               <a href={item.url} target="_blank"><img src={props.image} alt={item.name}/></a>
             </Typography>
-            <Typography className={classes.title}  className="restaurantInfoCard">
+            <Typography className={classes.title}>
               {item.name}
             </Typography>
             <Typography className={classes.stars} variant="headline" component="h2">
               <StarRatings
                 rating={overall}
-                starRatedColor="yellow"
+                starRatedColor="orange"
                 starDimension="20px"
                 starSpacing="2px"
                 numberOfStars={5}
@@ -144,7 +145,7 @@ return <Card className={classes.card} key={item.place_id}>
               :null}
 
               {item.opening_hours?
-              <div className="row set " >
+              <div className="row set">
                 <div className="col-11 offset-1 ">
                   {item.opening_hours.open_now? <Done className={classes.icon}/>:<Block className={classes.icon}/>}    {item.opening_hours.open_now? "Now Open" : "Now Closed"}
                 </div>
@@ -154,7 +155,7 @@ return <Card className={classes.card} key={item.place_id}>
               {item.opening_hours?
               <div className="row">
                 <div className="col-11 offset-1">
-                  <Typography className={classes.info} component="p">
+                  <Typography className={classes.info}>
                     <ExpansionPanel className={classes.expPanel}>
                       <ExpansionPanelSummary style={{padding:0}} expandIcon={<ExpandMoreIcon />}>
                         <Typography className={classes.info}><AccessTime className={classes.icon}/><span className={classes.rr}>Opening Hours</span></Typography>
@@ -162,7 +163,7 @@ return <Card className={classes.card} key={item.place_id}>
                       <ExpansionPanelDetails>
                         <Typography>
                           {item.opening_hours.weekday_text.map(day=>
-                            <div>
+                            <div key={day}>
                               {day}
                             </div>
                           )}
@@ -176,7 +177,7 @@ return <Card className={classes.card} key={item.place_id}>
               {item.reviews?
               <div className="row">
                 <div className="col-11 offset-1">
-                  <Typography className={classes.info} component="p">
+                  <Typography className={classes.info}>
                     <ExpansionPanel className={classes.expPanel}>
                       <ExpansionPanelSummary style={{padding:0}} expandIcon={<ExpandMoreIcon />}>
                         <Typography className={classes.info}><RateReview className={classes.icon}/><span className={classes.rr}>Recent Reviews</span></Typography>
@@ -206,13 +207,11 @@ return <Card className={classes.card} key={item.place_id}>
               </div>:null}
 
             </div>
-          </CardContent>
+      </CardContent>
     </Card>
-      }
-    )}
+    )})}
   </div>
-);
-}
+)}
 
 RestaurantReviewsCardGoogle.propTypes = {
   classes: PropTypes.object.isRequired,

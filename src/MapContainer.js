@@ -1,5 +1,6 @@
-import React, { Component, Fragment } from 'react';
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import React, { Component } from 'react';
+import {Map, Marker, GoogleApiWrapper} from 'google-maps-react';
+import './App.css';
 import axios from 'axios';
 import Modal from 'react-responsive-modal';
 import Form from './components/Form';
@@ -31,14 +32,13 @@ export class MapContainer extends Component {
    }
 
    mapClicked = (mapProps, map, event) => {
-     console.log(map);
      const { markers } = this.state;
      const lat = event.latLng.lat();
      const lng = event.latLng.lng();
      let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyCZ7rgMN34kWkGvr8Pzkf_8nkT7W6gowBA`
      axios.get(url).then(response => {
-       console.log(response.data);
        if(response.data.status === "OK"){
+         console.log(response.data)
          this.setState({
            googleReverseGeolocation:response.data.results[0].formatted_address,
            markers:[{  position:{lat:event.latLng.lat(),lng:event.latLng.lng()}  }, ...markers],
@@ -67,27 +67,43 @@ export class MapContainer extends Component {
       return <div>Loading...</div>
     }
     const style = {
-    width: '100%',
-    height: 'calc(100vh - 80px)',
+      width: '100%',
+      height: '100vh',
+      position: 'relative'
     }
     return (
-    <div style={{position:'relative'}}>
-
-    <Modal open={this.props.open} onClose={this.props.onCloseModal} center className="modal">
-      <Form
-        newRestaurantSubmitHandler={this.props.newRestaurantSubmitHandler}
-        restaurantName={this.props.restaurantName}
-        onRestaurantNameChange={this.props.onRestaurantNameChange}
-        restaurantComment={this.props.restaurantComment}
-        address={this.props.address}
-        handleChange={this.props.handleChange}
-        onRestaurantCommentChange={this.props.onRestaurantCommentChange}
-      />
-    </Modal>
+    <div style={style}>
+      <Modal
+       open={this.props.open}
+       onClose={this.props.onCloseModal}
+       center className="styles_closeButton__20ID4"
+       closeIconSize={30}
+       >
+        <Form
+          firstName={this.props.firstName}
+          firstNameError={this.props.firstNameError}
+          lastName={this.props.lastName}
+          lastNameError={this.props.lastNameError}
+          email={this.props.email}
+          emailError={this.props.emailError}
+          formHandleChange={this.props.formHandleChange}
+          newRestaurantSubmitHandler={this.props.newRestaurantSubmitHandler}
+          restaurantName={this.props.restaurantName}
+          restaurantNameError={this.props.restaurantNameError}
+          onRestaurantNameChange={this.props.onRestaurantNameChange}
+          restaurantComment={this.props.restaurantComment}
+          restaurantCommentError={this.props.restaurantCommentError}
+          address={this.props.address}
+          handleChange={this.props.handleChange}
+          onRestaurantCommentChange={this.props.onRestaurantCommentChange}
+          changeRating={this.props.changeRating}
+          stars={this.props.stars}
+        />
+      </Modal>
 
     <Map
      google={this.props.google}
-     zoom={5}
+     zoom={15}
      style={style}
      initialCenter={{
         lat: this.state.lat,
@@ -105,6 +121,9 @@ export class MapContainer extends Component {
          lat:this.state.lat,
          lng:this.state.lng
        }}
+       icon={{
+        url: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+      }}
      />
      {this.props.restaurants.map(marker =>
        <Marker
@@ -127,14 +146,13 @@ export class MapContainer extends Component {
        />
      )}
     </Map>
-
     <Snackbar
       anchorOrigin={{
         vertical: 'bottom',
         horizontal: 'left',
       }}
-      open={this.props.snackBarError}
-      autoHideDuration={6000}
+      open={this.props.snackBarMapError}
+      autoHideDuration={3000}
       onClose={()=>this.props.handleCloseSnackBar('errorClose')}
       ContentProps={{
         'aria-describedby': 'message-id',

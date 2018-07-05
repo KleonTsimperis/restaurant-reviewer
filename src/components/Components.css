@@ -16,11 +16,6 @@ body{
   /* height:85vh; */
 }
 
-.restaurantInfoCard{
-  font-size: 2rem!important;
-  text-align:center;
-  max-width: 420px;
-}
 
 .set{
   height:56px;
@@ -41,6 +36,11 @@ nav{
   max-height:80px;
   color:black;
   font-family: 'Great Vibes', cursive!important;
+}
+
+#nav-title{
+  font-family: 'Great Vibes', cursive!important;
+  font-size:2.2rem;
 }
 
 

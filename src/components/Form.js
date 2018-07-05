@@ -1,37 +1,45 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Components.css';
+import StarRatings from 'react-star-ratings';
+import Button from '@material-ui/core/Button';
 
 const Form = props =>
 
-  <div  className="form">
-    <h4 ref={subtitle => this.subtitle = subtitle} className="text-center">Submit your review</h4>
+  <div className="form">
+    <h4 ref={subtitle => this.subtitle = subtitle} className="text-center pt-3">Submit your review</h4>
     <form onSubmit={props.newRestaurantSubmitHandler} id="userForm">
       <div className="row m-3">
         <div className="col">
           <label>First name</label>
-          <input type="text" className="form-control"/>
+          <input type="text" value={props.firstName} name="firstName" onChange={props.formHandleChange} className="form-control"/>
+          <label style={{color:'red'}}>{props.firstName.length>=2?'':props.firstNameError}</label>
         </div>
         <div className="col">
           <label>Last name</label>
-          <input type="text" className="form-control"/>
+          <input type="text" value={props.lastName} name="lastName" onChange={props.formHandleChange} className="form-control"/>
+          <label style={{color:'red'}}>{props.lastName.length>=2?'':props.lastNameError}</label>
         </div>
       </div>
       <div className="row m-3">
         <div className="col">
           <label>Email</label>
-          <input type="email" className="form-control" />
+          <input type="email" value={props.email} name="email" onChange={props.formHandleChange} className="form-control"/>
+          <label style={{color:'red'}}>{props.email.indexOf("@") !== -1?'':props.emailError}</label>
         </div>
       </div>
       <div className="row m-3 mt-5">
         <div className="col">
           <label>Restaurant name</label>
-          <input value={props.restaurantName} onChange={(e)=>props.onRestaurantNameChange(e)} type="text" className="form-control"/>
+          <input value={props.restaurantName} name="restaurantName" onChange={props.onRestaurantNameChange} type="text" className="form-control"/>
+          <label style={{color:'red'}}>{props.restaurantName.length>=2?'':props.restaurantNameError}</label>
         </div>
       </div>
       <div className="row m-3">
         <div className="col">
           <label>Comments</label>
-          <textarea value={props.restaurantComment} onChange={(e)=>props.onRestaurantCommentChange(e)} className="form-control" rows="3" placeholder="Provide your feedback in this area..."></textarea>
+          <textarea value={props.restaurantComment} onChange={props.onRestaurantCommentChange} className="form-control" rows="3" placeholder="Provide your feedback in this area..."></textarea>
+          <label style={{color:'red'}}>{props.restaurantComment.length>=5?'':props.restaurantCommentError}</label>
         </div>
       </div>
       <div className="row m-3">
@@ -40,22 +48,40 @@ const Form = props =>
           <div>{props.address}</div>
         </div>
       </div>
-      <div className="row m-3  my-1 mr-sm-2 pb-3">
-        <div className="col col-md-6 m-0">
-        <select className="custom-select" id="inlineFormCustomSelectPref" value={props.value} onChange={props.handleChange}>
-          <option defaultValue>Rate your visit</option>
-          <option value="1" onClick={()=> props.handleChange(1)}>1</option>
-          <option value="2" onClick={()=> props.handleChange(2)}>2</option>
-          <option value="3" onClick={()=> props.handleChange(3)}>3</option>
-          <option value="4" onClick={()=> props.handleChange(4)}>4</option>
-          <option value="5" onClick={()=> props.handleChange(5)}>5</option>
-        </select>
+      <div className="row m-3  my-1 mr-sm-2 pb-3 align-items-center">
+        <div className="col col-md-6 m-0 text-center">
+        <StarRatings
+          rating={props.stars}
+          starRatedColor="orange"
+          changeRating={props.changeRating}
+          numberOfStars={5}
+          starSpacing="3px"
+          name='rating'
+          starDimension='20px'
+        />
         </div>
         <div className="col col-md-6 m-0">
-          <button type="submit" className="btn btn-primary mx-auto text-center " style={{width:"170px"}} onSubmit={props.newRestaurantSubmitHandler}>Submit Review</button>
+          <Button type="submit" size="large" onSubmit={props.newRestaurantSubmitHandler}>Submit Review</Button>
         </div>
       </div>
     </form>
   </div>
+
+  Form.propTypes = {
+    newRestaurantSubmitHandler: PropTypes.func.isRequired,
+    formHandleChange: PropTypes.func.isRequired,
+    firstName: PropTypes.string.isRequired,
+    firstNameError: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    lastNameError: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    emailError: PropTypes.string.isRequired,
+    restaurantName: PropTypes.string.isRequired,
+    restaurantNameError: PropTypes.string.isRequired,
+    onRestaurantNameChange: PropTypes.func.isRequired,
+    onRestaurantCommentChange: PropTypes.func.isRequired,
+    restaurantComment: PropTypes.string.isRequired,
+    restaurantCommentError: PropTypes.string.isRequired
+  }
 
 export default Form;

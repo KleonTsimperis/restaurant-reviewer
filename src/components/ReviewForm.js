@@ -2,9 +2,7 @@ import React from 'react';
 import StarRatings from 'react-star-ratings';
 import Button from '@material-ui/core/Button';
 import './Components.css';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+
 
 const ReviewForm = props =>
 
@@ -60,36 +58,14 @@ const ReviewForm = props =>
           />
           </div>
           <div className="col col-lg-4 m-0 mt-3 px-1">
-            <Button size="large" onClick={() => props.addReview()}>Submit Review</Button>
+            <Button size="large" onClick={() => props.addReview(props.isLocal)}>Submit Review</Button>
           </div>
           <div className="col col-lg-4 m-0 mt-3 mb-3">
             <Button size="large" onClick={() => props.discardReviewForm()}>Cancel</Button>
           </div>
         </div>
 
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-          open={props.snackBarSubmission}
-          autoHideDuration={6000}
-          onClose={()=>props.handleCloseSnackBar('submission')}
-          ContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id">Your feedback has been submitted</span>}
-          action={[
-            <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              onClick={()=>props.handleCloseSnackBar('submission')}
-            >
-              <CloseIcon />
-            </IconButton>,
-          ]}
-        />
+
 
     </div>;
 

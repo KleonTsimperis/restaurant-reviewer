@@ -8982,9 +8982,23 @@ a.text-dark:hover, a.text-dark:focus {
 ::-webkit-scrollbar {display:none;}
 
 .modal{
-  position:absolute;
-  top:500px;
+  position:relative;
+  top:100px;
 }
+
+.styles_closeButton__20ID4{
+  position:absolute;
+  top:1rem;
+  right:1rem;
+  cursor:pointer;
+  outline:none!important;
+}
+
+.styles_modal__gNwvD{
+  position:absolute;
+  top:15vh;
+}
+
 
 
 /*# sourceMappingURL=bootstrap.css.map */
