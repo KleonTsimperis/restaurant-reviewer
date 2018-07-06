@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import {Map, Marker, GoogleApiWrapper} from 'google-maps-react';
+import PropTypes from 'prop-types';
 import './App.css';
 import axios from 'axios';
 import Modal from 'react-responsive-modal';
-import Form from './components/Form';
+import Form from './components/Form/Form';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -86,16 +87,14 @@ export class MapContainer extends Component {
           lastNameError={this.props.lastNameError}
           email={this.props.email}
           emailError={this.props.emailError}
-          formHandleChange={this.props.formHandleChange}
+          handleInputChange={this.props.handleInputChange}
           newRestaurantSubmitHandler={this.props.newRestaurantSubmitHandler}
           restaurantName={this.props.restaurantName}
           restaurantNameError={this.props.restaurantNameError}
-          onRestaurantNameChange={this.props.onRestaurantNameChange}
+          handleInputChange={this.props.handleInputChange}
           restaurantComment={this.props.restaurantComment}
           restaurantCommentError={this.props.restaurantCommentError}
           address={this.props.address}
-          handleChange={this.props.handleChange}
-          onRestaurantCommentChange={this.props.onRestaurantCommentChange}
           changeRating={this.props.changeRating}
           stars={this.props.stars}
         />
@@ -103,7 +102,7 @@ export class MapContainer extends Component {
 
     <Map
      google={this.props.google}
-     zoom={15}
+     zoom={10}
      style={style}
      initialCenter={{
         lat: this.state.lat,
@@ -172,6 +171,19 @@ export class MapContainer extends Component {
     </div>
     );
   }
+}
+
+MapContainer.propTypes = {
+  liftGeolocationUp: PropTypes.func.isRequired,
+  onMapClickChange: PropTypes.func,
+  onOpenModal: PropTypes.func,
+  handleOpenSnackBar: PropTypes.func,
+  loaded: PropTypes.string,
+  google: PropTypes.object.isRequired,
+  restaurants: PropTypes.array.isRequired,
+  restaurantsGoogle: PropTypes.array.isRequired,
+  snackBarMapError: PropTypes.bool.isRequired,
+  handleCloseSnackBar: PropTypes.func.isRequired
 }
 
 export default GoogleApiWrapper({

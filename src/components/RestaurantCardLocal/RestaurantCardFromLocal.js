@@ -6,53 +6,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Delete from '@material-ui/icons/Delete';
-import Form from './Form';
 import StarRatings from 'react-star-ratings';
-
-const styles = {
-  card: {
-    minWidth: 275,
-    margin:5,
-  },
-  container1: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  container2: {
-    display: 'flex',
-    alignItems: 'baseline',
-    flexWrap: 'wrap',
-    padding:18,
-    paddingBottom:6,
-  },
-  title: {
-    marginBottom: 8,
-    fontSize: 20,
-    paddingTop:0,
-    flexBasis: '70%',
-    marginRight: 'auto'
-  },
-  ratingStars: {
-    marginBottom: 8,
-    flexBasis: '30%',
-    textAlign: 'right'
-  },
-  vicinity: {
-    flex: '1 0 90%'
-  },
-  ratingInteger: {
-    flex: '1 0 10%',
-    textAlign: 'right'
-  },
-  buttonRemove:{
-    marginLeft:'auto',
-    marginRight: -3
-  },
-  buttonAdd:{
-    marginLeft:-4
-  }
-};
+import styles from './Styles'
 
 const ratingAbove = isAbove => item =>
   item.ratings.map(item=>item.stars).reduce((accumulator,initialValue) => accumulator + initialValue) / item.ratings.length >= isAbove;
@@ -76,7 +31,7 @@ const RestaurantCardFromLocal = props => {
         });
     return  <Card className={classes.card} key={item.restaurantId}>
               <CardContent className={classes.container2}>
-              <h5 className={classes.title}>{item.restaurantName}</h5>
+              <h5 className={classes.title}>{capitalizedRestaurantName}</h5>
               <Typography variant="subheading" className={classes.ratingStars}>
                 <StarRatings
                   rating={overall}

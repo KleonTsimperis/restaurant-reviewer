@@ -1,15 +1,10 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-
-const styles = theme => ({
-  close: {
-    width: theme.spacing.unit * 4,
-    height: theme.spacing.unit * 4,
-  },
-});
+import styles from './Styles';
 
 const SnackBarSubmission = props => {
 const {classes} = props;
@@ -39,6 +34,13 @@ const {classes} = props;
       ]}
     />
   );
+}
+
+SnackBarSubmission.propTypes = {
+  classes: PropTypes.object.isRequired,
+  snackBarSubmission: PropTypes.bool.isRequired,
+  snackBarSubmissionError: PropTypes.bool.isRequired,
+  handleCloseSnackBar: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(SnackBarSubmission);

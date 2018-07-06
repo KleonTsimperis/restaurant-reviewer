@@ -1,13 +1,11 @@
-import pic1 from '../images/pic1.jpeg'
-import pic2 from '../images/pic2.jpg'
-import pic3 from '../images/pic3.jpg'
-import pic4 from '../images/pic4.jpg'
-import pic5 from '../images/pic5.jpg'
-import pic6 from '../images/pic6.jpg'
-import pic7 from '../images/pic7.png'
-import pic8 from '../images/pic8.jpg'
-
-
+import pic1 from './images/pic1.jpeg'
+import pic2 from './images/pic2.jpg'
+import pic3 from './images/pic3.jpg'
+import pic4 from './images/pic4.jpg'
+import pic5 from './images/pic5.jpg'
+import pic6 from './images/pic6.jpg'
+import pic7 from './images/pic7.png'
+import pic8 from './images/pic8.jpg'
 
 const tileData = [
   {

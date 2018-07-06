@@ -1,5 +1,5 @@
 import React from 'react';
-import './Components.css';
+import '../Components.css';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -17,75 +17,8 @@ import AccessTime from '@material-ui/icons/AccessTime';
 import RateReview from '@material-ui/icons/RateReview';
 import Done from '@material-ui/icons/Done';
 import Block from '@material-ui/icons/Block';
+import styles from './Styles';
 
-const styles = {
-  container: {
-    marginTop:5,
-    marginBottom:5,
-  },
-  card: {
-    minWidth: 275,
-  },
-  content: {
-    padding:0,
-    display: 'flex',
-    justifyContent: 'space-around',
-    flexWrap: 'wrap',
-  },
-  image: {
-    flex: '1 0 100%',
-    textAlign: 'center',
-    padding:5
-  },
-  stars: {
-    flex: '1 0 100%',
-    textAlign: 'center'
-  },
-  rating:{
-    flex: '1 0 100%',
-    textAlign: 'center',
-    marginBottom:10
-  },
-  title: {
-    flex: '1 0 100%',
-    marginBottom: 16,
-    textAlign: 'center',
-    fontSize: '2rem!important',
-    textAlign: 'center',
-    maxWidth: '420px'
-  },
-  reviewOverall:{
-    fontSize:'2rem',
-  },
-  icon:{
-    verticalAlign:'middle',
-    color:'#3f51b5'
-  },
-  info:{
-    flex: '1 0 100%',
-    textAlign: 'left',
-    marginTop:2,
-    marginBottom:2,
-  },
-  expPanel:{
-    boxShadow:'none',
-    flex: '1 0 100%',
-    textAlign: 'left',
-  },
-  rr:{
-    paddingLeft:5
-  },
-  reviewBox:{
-    padding:3,
-    paddingTop:6,
-    margin:10,
-    boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)'
-  },
-  cardActions:{
-    marginLeft:41.3
-  },
-
-};
 
 const restaurantToShow = selectedId => item => item.place_id === selectedId;
 
@@ -96,7 +29,7 @@ const RestaurantReviewsCardGoogle = props => {
   <div className={classes.container}>
     {props.restaurantsGoogle.filter(restaurantToShow(props.restaurantId)).map(item=>{
       const overall1 = item.reviews.map(item=>item.rating).reduce((accumulator,initialValue)=>accumulator+initialValue) / item.reviews.length;
-      const overall = parseFloat(overall1.toFixed(1),10)
+      const overall = parseFloat(overall1.toFixed(1),10);
       return(
         <Card className={classes.card} key={item.place_id}>
           <CardContent className={classes.content}>
@@ -147,7 +80,7 @@ const RestaurantReviewsCardGoogle = props => {
               {item.opening_hours?
               <div className="row set">
                 <div className="col-11 offset-1 ">
-                  {item.opening_hours.open_now? <Done className={classes.icon}/>:<Block className={classes.icon}/>}    {item.opening_hours.open_now? "Now Open" : "Now Closed"}
+                  {item.opening_hours.open_now? <Done className={classes.icon}/>:<Block className={classes.icon}/>} {item.opening_hours.open_now? "Now Open" : "Now Closed"}
                 </div>
               </div>
               :null}
@@ -215,6 +148,10 @@ const RestaurantReviewsCardGoogle = props => {
 
 RestaurantReviewsCardGoogle.propTypes = {
   classes: PropTypes.object.isRequired,
+  restaurantsGoogle: PropTypes.array.isRequired,
+  restaurantId: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+
 };
 
 export default withStyles(styles)(RestaurantReviewsCardGoogle);

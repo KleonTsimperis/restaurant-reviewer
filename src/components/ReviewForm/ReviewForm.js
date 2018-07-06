@@ -1,7 +1,8 @@
 import React from 'react';
 import StarRatings from 'react-star-ratings';
 import Button from '@material-ui/core/Button';
-import './Components.css';
+import PropTypes from 'prop-types';
+import '../Components.css';
 
 
 const ReviewForm = props =>
@@ -11,17 +12,20 @@ const ReviewForm = props =>
         <div className="row m-3">
           <div className="col">
             <label>First name</label>
-            <input type="text" className="form-control"/>
+            <input type="text" value={props.firstName} name="firstName" onChange={props.handleInputChange} className="form-control"/>
+            <label style={{color:"red"}}>{props.firstName.length>=2? '' : props.firstNameError}</label>
           </div>
           <div className="col">
             <label>Last name</label>
-            <input type="text" className="form-control"/>
+            <input type="text" value={props.lastName} name="lastName" onChange={props.handleInputChange} className="form-control"/>
+            <label style={{color:"red"}}>{props.lastName.length>=2? '' : props.lastNameError}</label>
           </div>
         </div>
         <div className="row m-3">
           <div className="col">
             <label>Email</label>
-            <input type="email" className="form-control"/>
+            <input type="email" value={props.email} name="email" onChange={props.handleInputChange} className="form-control"/>
+            <label style={{color:"red"}}>{props.email.indexOf("@") !== -1 ? '' : props.emailError}</label>
           </div>
         </div>
         <div className="row m-3 mt-5 text-center">
@@ -42,7 +46,8 @@ const ReviewForm = props =>
         </div>
         <div className="row m-3">
           <div className="col">
-            <textarea value={props.restaurantComment} onChange={(e)=>props.onRestaurantCommentChange(e)} className="form-control" rows="4" placeholder="Provide your comments in this area..."></textarea>
+            <textarea value={props.restaurantComment} name="restaurantComment" onChange={props.handleInputChange} className="form-control" rows="4" placeholder="Provide your comments in this area..."></textarea>
+            <label style={{color:"red"}}>{props.restaurantComment.length>=5? '' : props.restaurantCommentError}</label>
           </div>
         </div>
         <div className="row m-3 text-center">
@@ -64,12 +69,25 @@ const ReviewForm = props =>
             <Button size="large" onClick={() => props.discardReviewForm()}>Cancel</Button>
           </div>
         </div>
-
-
-
     </div>;
 
-
+ReviewForm.propTypes = {
+  addReview: PropTypes.func.isRequired,
+  discardReviewForm: PropTypes.func.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  firstName: PropTypes.string.isRequired,
+  firstNameError: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
+  lastNameError: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  emailError: PropTypes.string.isRequired,
+  restaurantName: PropTypes.string.isRequired,
+  restaurantNameError: PropTypes.string.isRequired,
+  onRestaurantNameChange: PropTypes.func.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  restaurantComment: PropTypes.string.isRequired,
+  restaurantCommentError: PropTypes.string.isRequired
+}
 
 
 

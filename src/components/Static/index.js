@@ -4,27 +4,13 @@ import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import tileData from './tileData';
+import styles from './Styles';
 
-const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
-  },
-  gridList: {
-    width: '100%',
-    height: '100%',
-  },
-  subheader: {
-    width: '100%',
-  },
-});
 
-const Static = props =>{
+
+const Static = props => {
   const {classes} = props;
-  return (
+  return(
     <div className={classes.root}>
       <GridList cellHeight={260} className={classes.gridList} cols={3}>
         {tileData.map(tile => (
@@ -35,6 +21,10 @@ const Static = props =>{
       </GridList>
     </div>
   );
+}
+
+Static.propTypes = {
+  classes: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles)(Static);

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Components.css';
+import '../Components.css';
 import StarRatings from 'react-star-ratings';
 import Button from '@material-ui/core/Button';
 
@@ -12,33 +12,33 @@ const Form = props =>
       <div className="row m-3">
         <div className="col">
           <label>First name</label>
-          <input type="text" value={props.firstName} name="firstName" onChange={props.formHandleChange} className="form-control"/>
+          <input type="text" value={props.firstName} name="firstName" onChange={props.handleInputChange} className="form-control"/>
           <label style={{color:'red'}}>{props.firstName.length>=2?'':props.firstNameError}</label>
         </div>
         <div className="col">
           <label>Last name</label>
-          <input type="text" value={props.lastName} name="lastName" onChange={props.formHandleChange} className="form-control"/>
+          <input type="text" value={props.lastName} name="lastName" onChange={props.handleInputChange} className="form-control"/>
           <label style={{color:'red'}}>{props.lastName.length>=2?'':props.lastNameError}</label>
         </div>
       </div>
       <div className="row m-3">
         <div className="col">
           <label>Email</label>
-          <input type="email" value={props.email} name="email" onChange={props.formHandleChange} className="form-control"/>
+          <input type="email" value={props.email} name="email" onChange={props.handleInputChange} className="form-control"/>
           <label style={{color:'red'}}>{props.email.indexOf("@") !== -1?'':props.emailError}</label>
         </div>
       </div>
       <div className="row m-3 mt-5">
         <div className="col">
           <label>Restaurant name</label>
-          <input value={props.restaurantName} name="restaurantName" onChange={props.onRestaurantNameChange} type="text" className="form-control"/>
+          <input value={props.restaurantName} name="restaurantName" onChange={props.handleInputChange} type="text" className="form-control"/>
           <label style={{color:'red'}}>{props.restaurantName.length>=2?'':props.restaurantNameError}</label>
         </div>
       </div>
       <div className="row m-3">
         <div className="col">
           <label>Comments</label>
-          <textarea value={props.restaurantComment} onChange={props.onRestaurantCommentChange} className="form-control" rows="3" placeholder="Provide your feedback in this area..."></textarea>
+          <textarea value={props.restaurantComment} onChange={props.handleInputChange} className="form-control" rows="3" placeholder="Provide your feedback in this area..."></textarea>
           <label style={{color:'red'}}>{props.restaurantComment.length>=5?'':props.restaurantCommentError}</label>
         </div>
       </div>
@@ -65,11 +65,10 @@ const Form = props =>
         </div>
       </div>
     </form>
-  </div>
+  </div>;
 
   Form.propTypes = {
     newRestaurantSubmitHandler: PropTypes.func.isRequired,
-    formHandleChange: PropTypes.func.isRequired,
     firstName: PropTypes.string.isRequired,
     firstNameError: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
@@ -78,8 +77,8 @@ const Form = props =>
     emailError: PropTypes.string.isRequired,
     restaurantName: PropTypes.string.isRequired,
     restaurantNameError: PropTypes.string.isRequired,
-    onRestaurantNameChange: PropTypes.func.isRequired,
-    onRestaurantCommentChange: PropTypes.func.isRequired,
+    handleInputChange: PropTypes.func.isRequired,
+    handleInputChange: PropTypes.func.isRequired,
     restaurantComment: PropTypes.string.isRequired,
     restaurantCommentError: PropTypes.string.isRequired
   }

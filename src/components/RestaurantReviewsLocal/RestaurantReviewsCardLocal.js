@@ -1,5 +1,5 @@
 import React from 'react';
-import './Components.css';
+import '../Components.css';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -12,76 +12,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import LocationOn from '@material-ui/icons/LocationOn';
 import RateReview from '@material-ui/icons/RateReview';
-
-
-const styles = {
-  container: {
-    marginTop:5,
-    marginBottom:5,
-  },
-  card: {
-    minWidth: 275,
-  },
-  content: {
-    padding:0,
-    display: 'flex',
-    justifyContent: 'space-around',
-    flexWrap: 'wrap',
-  },
-  image: {
-    flex: '1 0 100%',
-    textAlign: 'center',
-    padding:5
-  },
-  stars: {
-    flex: '1 0 100%',
-    textAlign: 'center'
-  },
-  rating:{
-    flex: '1 0 100%',
-    textAlign: 'center',
-    marginBottom:10
-  },
-  title: {
-    flex: '1 0 100%',
-    marginBottom: 16,
-    textAlign: 'center',
-    fontSize: '2rem!important',
-    textAlign: 'center',
-    maxWidth: '420px'
-  },
-  reviewOverall:{
-    fontSize:'2rem',
-  },
-  icon:{
-    verticalAlign:'middle',
-    color:'#3f51b5'
-  },
-  info:{
-    flex: '1 0 100%',
-    textAlign: 'left',
-    marginTop:2,
-    marginBottom:2,
-  },
-  expPanel:{
-    boxShadow:'none',
-    flex: '1 0 100%',
-    textAlign: 'left',
-  },
-  rr:{
-    paddingLeft:5
-  },
-  reviewBox:{
-    padding:3,
-    paddingTop:6,
-    margin:10,
-    boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)'
-  },
-  cardActions:{
-    marginLeft:41.3
-  },
-
-};
+import styles from './Styles';
 
 const restaurantToShow = selectedId => item => item.restaurantId === selectedId;
 
@@ -125,10 +56,6 @@ const RestaurantReviewsCardLocal = props => {
                   </div>
                 </div>
 
-
-
-
-
                 {item.ratings?
                 <div className="row">
                   <div className="col-11 offset-1">
@@ -170,6 +97,9 @@ const RestaurantReviewsCardLocal = props => {
 
 RestaurantReviewsCardLocal.propTypes = {
   classes: PropTypes.object.isRequired,
+  restaurants: PropTypes.array.isRequired,
+  restaurantId: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(RestaurantReviewsCardLocal);

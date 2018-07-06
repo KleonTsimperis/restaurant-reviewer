@@ -8,18 +8,22 @@
     "isEditing":false,
     "ratings":[
        {
+          "author_name":"Michael Jordan",
           "stars":4,
           "comment":"Great! But not many veggie options."
        },
        {
+          "author_name":"John Krasinsky",
           "stars":5,
           "comment":"My favorite restaurant!"
        },
        {
+          "author_name":"Pamela Jennings",
           "stars":3,
           "comment":"I had better, but they offer a wide range of beef."
        },
        {
+          "author_name":"Arkady Ivanonic",
           "stars":4,
           "comment":"I had the steak, mussels with a side of chicken parmesan. All were very good. We will be back."
        }
@@ -34,22 +38,27 @@
     "isEditing":false,
     "ratings":[
        {
+          "author_name":"Igor Pavlovich",
           "stars":3,
           "comment":"Tiny pizzeria next to Sacre Coeur!"
        },
        {
+          "author_name":"Sasha Smetova",
           "stars":3,
           "comment":"Meh, it was fine."
        },
        {
+          "author_name":"John Bloom",
           "stars":4,
           "comment":"The food, service, atmosphere, and service are excellent. I would recommend it to all my friends!"
        },
        {
+          "author_name":"George The Great",
           "stars":2,
           "comment":"Good atmosphere, amazing food and great service.Service is also pretty good. Give them a try!"
        },
        {
+          "author_name":"Moses",
           "stars":3,
           "comment":"Had better..."
        }
