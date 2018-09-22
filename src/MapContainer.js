@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Map, Marker, GoogleApiWrapper} from 'google-maps-react';
 import PropTypes from 'prop-types';
-import './App.css';
+import './styles/App.css';
 import axios from 'axios';
 import Modal from 'react-responsive-modal';
 import Form from './components/Form/Form';
@@ -39,7 +39,6 @@ export class MapContainer extends Component {
      let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyCZ7rgMN34kWkGvr8Pzkf_8nkT7W6gowBA`
      axios.get(url).then(response => {
        if(response.data.status === "OK"){
-         console.log(response.data)
          this.setState({
            googleReverseGeolocation:response.data.results[0].formatted_address,
            markers:[{  position:{lat:event.latLng.lat(),lng:event.latLng.lng()}  }, ...markers],
@@ -65,8 +64,8 @@ export class MapContainer extends Component {
 
   render() {
     if (!this.props.loaded) {
-      return <div>Loading...</div>
-    }
+     return <div>Loading...</div>
+   }
     const style = {
       width: '100%',
       height: '100vh',
@@ -91,7 +90,6 @@ export class MapContainer extends Component {
           newRestaurantSubmitHandler={this.props.newRestaurantSubmitHandler}
           restaurantName={this.props.restaurantName}
           restaurantNameError={this.props.restaurantNameError}
-          handleInputChange={this.props.handleInputChange}
           restaurantComment={this.props.restaurantComment}
           restaurantCommentError={this.props.restaurantCommentError}
           address={this.props.address}
@@ -178,7 +176,6 @@ MapContainer.propTypes = {
   onMapClickChange: PropTypes.func,
   onOpenModal: PropTypes.func,
   handleOpenSnackBar: PropTypes.func,
-  loaded: PropTypes.string,
   google: PropTypes.object.isRequired,
   restaurants: PropTypes.array.isRequired,
   restaurantsGoogle: PropTypes.array.isRequired,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './styles/App.css';
 import Navbar from './components/Navbar/Navbar';
 import axios from 'axios';
 import AppBar from '@material-ui/core/AppBar';
@@ -13,30 +13,7 @@ import RestaurantReviewsCardLocal from './components/RestaurantReviewsLocal/Rest
 import RestaurantReviewsCardGoogle from './components/RestaurantReviewsGoogle/RestaurantReviewsCardGoogle';
 import ReviewForm from './components/ReviewForm/ReviewForm';
 import SnackBarSubmission from './components/SnackBarSubmission/SnackBarSubmission';
-
-
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    overflow:'hidden',
-    position:'relative',
-    top:'4.8rem',
-  },
-  resultsContainer:{
-    height:'90vh',
-    overflow:'scroll',
-    paddingTop:10,
-    paddingBottom:80,
-    marginBottom:80
-  },
-  reviewFormContainer:{
-    maxWidth: '33%',
-    height:'90vh',
-    paddingTop:10,
-    overflow:'scroll',
-  },
-});
-
+import {styles} from './styles/Styles';
 
 class App extends Component {
   constructor(props){
@@ -102,7 +79,11 @@ class App extends Component {
     return id;
   };
 
+   _isMounted = false;
+
    componentDidMount(){
+    this._isMounted = true;
+    console.log(this._isMounted);
     navigator.geolocation.getCurrentPosition(position=>{
     this.setState({geoLat:position.coords.latitude,geoLng:position.coords.longitude});
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.coords.latitude},${position.coords.longitude}&radius=50000&type=restaurant&key=AIzaSyCZ7rgMN34kWkGvr8Pzkf_8nkT7W6gowBA`)
@@ -110,14 +91,54 @@ class App extends Component {
            response.data.results.map(item=>
             axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${item.place_id}&key=AIzaSyCZ7rgMN34kWkGvr8Pzkf_8nkT7W6gowBA`)
             .then(response=>{
-              console.log(response.data.result)
-              this.setState(prevState=>({restaurantsGoogle:[...prevState.restaurantsGoogle, response.data.result]}))
+              if(this._isMounted){
+                this.setState(prevState=>({restaurantsGoogle:[...prevState.restaurantsGoogle, response.data.result]}))
+              }
             })
            )
          })
     });
     axios.get('/restaurants.json')
          .then(response =>this.setState({restaurants:response.data}));
+  }
+
+  // async componentDidMount(){
+  // this.cancelTokenSource && this.cancelTokenSource.cancel()
+  // try {
+  //   await navigator.geolocation.getCurrentPosition(position=>{
+  //    this.setState({geoLat:position.coords.latitude,geoLng:position.coords.longitude});
+  //     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.coords.latitude},${position.coords.longitude}&radius=50000&type=restaurant&key=AIzaSyCZ7rgMN34kWkGvr8Pzkf_8nkT7W6gowBA`)
+  //         .then(response=>{
+  //           response.data.results.map(item=>
+  //            axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${item.place_id}&key=AIzaSyCZ7rgMN34kWkGvr8Pzkf_8nkT7W6gowBA`,{
+  //         cancelToken: this.cancelTokenSource.token
+  //       })
+  //            .then(response=>this.setState(prevState=>({restaurantsGoogle:[...prevState.restaurantsGoogle, response.data.result]}))))
+  //         })
+  //    });
+  //    axios.get('/restaurants.json')
+  //         .then(response =>this.setState({restaurants:response.data}));
+  // } catch (err) {
+  //     if (axios.isCancel(err)) {
+  //       // ignore
+  //     } else {
+  //       // propegate
+  //       throw err
+  //     }
+  //   } finally {
+  //     this.cancelTokenSource = null
+  //   }
+  //
+  // }
+
+
+
+
+
+  componentWillUnmount(){
+    // this._isMounted = false;
+    // console.log('component unmounted')
+    this.cancelTokenSource && this.cancelTokenSource.cancel()
   }
 
   clearFilters(){
@@ -493,7 +514,6 @@ class App extends Component {
               lastNameError={this.state.lastNameError}
               email={this.state.email}
               emailError={this.state.emailError}
-              handleInputChange={this.handleInputChange}
               restaurants={this.state.restaurants}
               restaurantName={this.state.restaurantName}
               restaurantNameError={this.state.restaurantNameError}
@@ -532,7 +552,7 @@ class App extends Component {
               searchTerm={this.state.searchTerm}
             />
 
-            <RestaurantCardFromGoogle
+            {this.state.restaurantsGoogle?<RestaurantCardFromGoogle
               restaurantsGoogle={this.state.restaurantsGoogle}
               assignIsEditing={this.assignIsEditing}
               from={this.state.from}
@@ -541,7 +561,8 @@ class App extends Component {
               removeRestaurantFromList={this.removeRestaurantFromList}
               openRecentReviewsGoogle={this.openRecentReviewsGoogle}
               searchTerm={this.state.searchTerm}
-            />
+            /> : <div>loading</div>}
+
           </Grid>
 
           <Grid item  md={4} className={classes.reviewFormContainer}>
@@ -579,7 +600,6 @@ class App extends Component {
             restaurantNameError={this.state.restaurantNameError}
             restaurantComment={this.state.restaurantComment}
             restaurantCommentError={this.state.restaurantCommentError}
-            handleInputChange={this.handleInputChange}
           />}
 
           {<Static/>}

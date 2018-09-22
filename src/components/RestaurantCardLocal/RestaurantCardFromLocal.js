@@ -29,42 +29,44 @@ const RestaurantCardFromLocal = props => {
         capitalizedRestaurantName = capitalizedRestaurantName.toLowerCase().replace(/\b[a-z]/g, function(letter) {
           return letter.toUpperCase();
         });
-    return  <Card className={classes.card} key={item.restaurantId}>
-              <CardContent className={classes.container2}>
-              <h5 className={classes.title}>{capitalizedRestaurantName}</h5>
-              <Typography variant="subheading" className={classes.ratingStars}>
-                <StarRatings
-                  rating={overall}
-                  starRatedColor="orange"
-                  starDimension="20px"
-                  starSpacing="3px"
-                  numberOfStars={5}
-                  name='rating'
-                />
-              </Typography>
-              <Typography variant="body1" className={classes.vicinity}>
-                 {item.address}
-              </Typography>
-              <Typography variant="title" className={classes.ratingInteger}>
-                 {overall}
-              </Typography>
-              </CardContent>
-              <CardActions className={classes.container2}>
-              <Button variant="contained" color="primary" size="small"  className={classes.buttonAdd} onClick={()=>props.toggleEditingAt(item.restaurantId,item.restaurantName,item.address,overall)}>
-                ADD REVIEW
-              </Button>
-              <Button  color="primary" size="small"  onClick={() => props.getRestaurantId(item.restaurantId,item.lat, item.lng)}>
-                RESTAURANT INFO
-              </Button>
-              <Button variant="contained" color="secondary" size="small" className={classes.buttonRemove} onClick={()=>props.removeRestaurantFromList(item.restaurantId)}>
-                REMOVE
-              </Button>
-              </CardActions>
-            </Card>
-                })}
-          </div>
+        return(
+          <Card className={classes.card} key={item.restaurantId}>
+            <CardContent className={classes.container2}>
+            <h5 className={classes.title}>{capitalizedRestaurantName}</h5>
+            <Typography variant="subheading" className={classes.ratingStars}>
+              <StarRatings
+                rating={overall}
+                starRatedColor="orange"
+                starDimension="20px"
+                starSpacing="3px"
+                numberOfStars={5}
+                name='rating'
+              />
+            </Typography>
+            <Typography variant="body1" className={classes.vicinity}>
+               {item.address}
+            </Typography>
+            <Typography variant="title" className={classes.ratingInteger}>
+               {overall}
+            </Typography>
+            </CardContent>
+            <CardActions className={classes.container2}>
+            <Button variant="contained" color="primary" size="small"  className={classes.buttonAdd} onClick={()=>props.toggleEditingAt(item.restaurantId,item.restaurantName,item.address,overall)}>
+              ADD REVIEW
+            </Button>
+            <Button  color="primary" size="small"  onClick={() => props.getRestaurantId(item.restaurantId,item.lat, item.lng)}>
+              RESTAURANT INFO
+            </Button>
+            <Button variant="contained" color="secondary" size="small" className={classes.buttonRemove} onClick={()=>props.removeRestaurantFromList(item.restaurantId)}>
+              REMOVE
+            </Button>
+            </CardActions>
+          </Card>
         );
-      }
+      })}
+    </div>
+    );
+  }
 
       RestaurantCardFromLocal.propTypes = {
         classes: PropTypes.object.isRequired,

@@ -24,7 +24,8 @@ const styles = {
   rating:{
     flex: '1 0 100%',
     textAlign: 'center',
-    marginBottom:10
+    marginBottom:10,
+    marginTop:10
   },
   title: {
     flex: '1 0 100%',
@@ -45,6 +46,7 @@ const styles = {
     textAlign: 'left',
     marginTop:2,
     marginBottom:2,
+    display:'inline'
   },
   expPanel:{
     boxShadow:'none',

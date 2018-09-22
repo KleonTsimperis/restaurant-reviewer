@@ -78,7 +78,6 @@ const Form = props =>
     restaurantName: PropTypes.string.isRequired,
     restaurantNameError: PropTypes.string.isRequired,
     handleInputChange: PropTypes.func.isRequired,
-    handleInputChange: PropTypes.func.isRequired,
     restaurantComment: PropTypes.string.isRequired,
     restaurantCommentError: PropTypes.string.isRequired
   }

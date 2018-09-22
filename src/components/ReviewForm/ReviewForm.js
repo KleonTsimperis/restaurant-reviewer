@@ -84,7 +84,6 @@ ReviewForm.propTypes = {
   restaurantName: PropTypes.string.isRequired,
   restaurantNameError: PropTypes.string.isRequired,
   onRestaurantNameChange: PropTypes.func.isRequired,
-  handleInputChange: PropTypes.func.isRequired,
   restaurantComment: PropTypes.string.isRequired,
   restaurantCommentError: PropTypes.string.isRequired
 }
