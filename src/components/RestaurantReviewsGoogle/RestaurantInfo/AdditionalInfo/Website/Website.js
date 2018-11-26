@@ -9,7 +9,7 @@ const Website = props => {
     return(
       <div className="row set" >
         <div className="col-11 offset-1 " >
-          <a href={props.website} target="_blank" className={classes.url}><Public className={classes.icon}/> {props.website}</a>
+          <a href={props.website} className={classes.url}><Public className={classes.icon}/> {props.website}</a>
         </div>
       </div>
     );

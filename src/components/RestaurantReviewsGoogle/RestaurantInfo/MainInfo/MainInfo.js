@@ -10,7 +10,7 @@ const MainInfo = props => {
   return(
     <Fragment>
       <Typography className={classes.image} variant="headline" component="h4">
-        <a href={props.url} target="_blank"><img src={props.image} alt={props.name}/></a>
+        <a href={props.url}><img src={props.image} alt={props.name}/></a>
       </Typography>
       <Typography className={classes.title}>
         {props.name}

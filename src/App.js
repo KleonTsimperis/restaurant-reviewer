@@ -81,15 +81,15 @@ class App extends Component {
 
    _isMounted = false;
 
+
    componentDidMount(){
     this._isMounted = true;
-    console.log(this._isMounted);
     navigator.geolocation.getCurrentPosition(position=>{
     this.setState({geoLat:position.coords.latitude,geoLng:position.coords.longitude});
-    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.coords.latitude},${position.coords.longitude}&radius=50000&type=restaurant&key=AIzaSyCZ7rgMN34kWkGvr8Pzkf_8nkT7W6gowBA`)
+       axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.coords.latitude},${position.coords.longitude}&radius=50000&type=restaurant&key=AIzaSyCZ7rgMN34kWkGvr8Pzkf_8nkT7W6gowBA`, {headers:{'Access-Control-Allow-Origin': 'http://localhost:3009/'}})
          .then(response=>{
            response.data.results.map(item=>
-            axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${item.place_id}&key=AIzaSyCZ7rgMN34kWkGvr8Pzkf_8nkT7W6gowBA`)
+            axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/details/json?placeid=${item.place_id}&key=AIzaSyCZ7rgMN34kWkGvr8Pzkf_8nkT7W6gowBA`, {headers:{'Access-Control-Allow-Origin': 'http://localhost:3009/'}})
             .then(response=>{
               if(this._isMounted){
                 this.setState(prevState=>({restaurantsGoogle:[...prevState.restaurantsGoogle, response.data.result]}))
@@ -100,45 +100,6 @@ class App extends Component {
     });
     axios.get('/restaurants.json')
          .then(response =>this.setState({restaurants:response.data}));
-  }
-
-  // async componentDidMount(){
-  // this.cancelTokenSource && this.cancelTokenSource.cancel()
-  // try {
-  //   await navigator.geolocation.getCurrentPosition(position=>{
-  //    this.setState({geoLat:position.coords.latitude,geoLng:position.coords.longitude});
-  //     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.coords.latitude},${position.coords.longitude}&radius=50000&type=restaurant&key=AIzaSyCZ7rgMN34kWkGvr8Pzkf_8nkT7W6gowBA`)
-  //         .then(response=>{
-  //           response.data.results.map(item=>
-  //            axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${item.place_id}&key=AIzaSyCZ7rgMN34kWkGvr8Pzkf_8nkT7W6gowBA`,{
-  //         cancelToken: this.cancelTokenSource.token
-  //       })
-  //            .then(response=>this.setState(prevState=>({restaurantsGoogle:[...prevState.restaurantsGoogle, response.data.result]}))))
-  //         })
-  //    });
-  //    axios.get('/restaurants.json')
-  //         .then(response =>this.setState({restaurants:response.data}));
-  // } catch (err) {
-  //     if (axios.isCancel(err)) {
-  //       // ignore
-  //     } else {
-  //       // propegate
-  //       throw err
-  //     }
-  //   } finally {
-  //     this.cancelTokenSource = null
-  //   }
-  //
-  // }
-
-
-
-
-
-  componentWillUnmount(){
-    // this._isMounted = false;
-    // console.log('component unmounted')
-    this.cancelTokenSource && this.cancelTokenSource.cancel()
   }
 
   clearFilters(){

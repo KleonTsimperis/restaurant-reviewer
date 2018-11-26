@@ -83,7 +83,7 @@ ReviewForm.propTypes = {
   emailError: PropTypes.string.isRequired,
   restaurantName: PropTypes.string.isRequired,
   restaurantNameError: PropTypes.string.isRequired,
-  onRestaurantNameChange: PropTypes.func.isRequired,
+  onRestaurantNameChange: PropTypes.func,
   restaurantComment: PropTypes.string.isRequired,
   restaurantCommentError: PropTypes.string.isRequired
 }

@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 const Form = props =>
 
   <div className="form">
-    <h4 ref={subtitle => this.subtitle = subtitle} className="text-center pt-3">Submit your review</h4>
+    <h4 className="text-center pt-3">Submit your review</h4>
     <form onSubmit={props.newRestaurantSubmitHandler} id="userForm">
       <div className="row m-3">
         <div className="col">
@@ -38,7 +38,7 @@ const Form = props =>
       <div className="row m-3">
         <div className="col">
           <label>Comments</label>
-          <textarea value={props.restaurantComment} onChange={props.handleInputChange} className="form-control" rows="3" placeholder="Provide your feedback in this area..."></textarea>
+          <textarea name="restaurantComment" value={props.restaurantComment} onChange={props.handleInputChange} className="form-control" rows="3" placeholder="Provide your feedback in this area..."></textarea>
           <label style={{color:'red'}}>{props.restaurantComment.length>=5?'':props.restaurantCommentError}</label>
         </div>
       </div>
